@@ -38,7 +38,7 @@ DAY_OF_WEEKS_CHOICES = (
     (0, "Pazar"),
     (1,"Pazartesi"),
     (2,"Sali"),
-    (3,"CArsamba"),
+    (3,"Carsamba"),
     (4,"Persembe"),
     (5,"Cuma"),
     (6,"Cumartesi"),

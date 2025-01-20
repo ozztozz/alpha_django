@@ -7,6 +7,7 @@ module.exports = {
       './node_modules/flowbite/**/*.js',
       'account/templates/**/*.html',
       'antrenor/templates/**/*.html',
+      'takim/templates/**/*.html',
     ],
     transform: (content) => content.replace(/taos:/g, ''),
     relative: true,

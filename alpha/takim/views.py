@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Takim,Sporcu,Antrenman,Ozellikler
+from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman
 from .forms import FormTakim,FormSporcu,FormAntrenman
 
 # Create your views here.
@@ -108,3 +108,6 @@ def antrenman_guncelle(request,id):
     form = FormAntrenman(instance = antrenman)
     return render(request, "antrenman_ekle.html", {'form':form,'antrenman':antrenman})
 
+def haftalik_antrenman(request):
+    haftalik_list=HaftalikAntrenman.objects.all()
+    return render(request,'haftalik_antrenman.html',{'haftalik_list':haftalik_list})
