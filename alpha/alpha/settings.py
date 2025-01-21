@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'account.apps.AccountConfig',
     'takim.apps.TakimConfig',
-    'cookie_consent',
     'django_summernote',
     
 

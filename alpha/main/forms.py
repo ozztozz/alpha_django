@@ -1,7 +1,6 @@
 from django import forms
 from .models import Basvuru
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit,Div
+
 
 class BransEkle(forms.Form):
     brans= forms.CharField(max_length=30)

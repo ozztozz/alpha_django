@@ -1,5 +1,5 @@
 from django.db import models
-from django_ckeditor_5.fields import CKEditor5Field
+
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.conf import settings
@@ -38,7 +38,7 @@ class Antrenor (models.Model):
 class Branslar (models.Model):
     brans= models.CharField(max_length=50)
     ozet=models.TextField()
-    aciklama=CKEditor5Field('Text', config_name='extends')
+    aciklama=models.TextField()
     resim=models.ImageField(null=True,blank=True)
     aktif=models.BooleanField(default=True)
 
@@ -82,6 +82,10 @@ class Blog (models.Model):
             self.slug = slugify(self.baslik)
         super().save(*args, **kwargs)
     
+
+
+
+
 
 KAYNAK_CHOICES = (
     ("INS", "Instagram"),
@@ -131,3 +135,4 @@ class Basvuru (models.Model):
     def get_absolute_url(self):
         return reverse("basvuru_detail", kwargs={"id": self.pk})
     
+

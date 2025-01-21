@@ -27,11 +27,6 @@ urlpatterns = [
     path('',include('main.urls')),
     path('account/', include('account.urls')),
     path('takim/', include('takim.urls')),
-    path('cookie_consent/', include('cookie_consent.urls')),
-    
- 
-    
-
 ]
 
 
