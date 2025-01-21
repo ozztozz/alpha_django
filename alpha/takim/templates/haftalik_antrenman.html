@@ -21,25 +21,42 @@
 
 
 <div class="grid grid-cols-7">
-    {% for gun,ant in  haftalik_nested.items%}
-    <div class=" bg-blue-300 p-4 m-2">
-        {{gun}}
+    {% for gun,ant in haftalik_nested.items%}
+    <div class=" grid-rows-10 gap-2 m-2 justify-between bg-blue-300 ">
+        <div class="font-bold text-center">{{gun}}</div>
 
-        {% for antrenman in ant  %}
-        <div class=" bg-blue-300 p-4 m-2">
-          {{antrenman.tur}}
-          {{antrenman.get_yer_display}}<br>
-          {{antrenman.baslangic}}
-          {{antrenman.bitis}}
-          
+        <div class="row-span-3">
+            {% for antrenman in ant.sabah %}
+            <div class=" bg-blue-300 ">
+
+                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
+                {{antrenman.tur}}-
+                {{antrenman.baslangic}}
+                {{antrenman.bitis}}
+
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-      
+        <div class=" w-full bg-blue-800 h-4"></div>
 
-        
+        <div class="row-span-3">
+            {% for antrenman in ant.aksam %}
+            <div class=" bg-blue-300">
 
-      {% endfor %}
+                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
+                {{antrenman.tur}}-
+                {{antrenman.baslangic}}
+                {{antrenman.bitis}}
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+    {% endfor %}
 </div>
 
 {% endblock content %}

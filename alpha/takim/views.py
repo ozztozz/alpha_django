@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
 from .forms import FormTakim,FormSporcu,FormAntrenman
+from datetime import  time
 
 # Create your views here.
 
@@ -112,11 +113,12 @@ def haftalik_antrenman(request):
     haftalik_list=HaftalikAntrenman.objects.all().order_by('dayofweek',)
     haftalik_nested={}
     for gun in DAY_OF_WEEKS_CHOICES:
-        haftalik_nested[gun[1]]=list()
+        haftalik_nested[gun[1]]={'sabah':[],'aksam':[]}
     
     for antrenman in haftalik_list:
         gunluk=haftalik_nested.get(antrenman.get_dayofweek_display())
-        gunluk.append(antrenman)
+        donem= 'sabah' if antrenman.baslangic < time(13,00) else 'aksam'
+        gunluk[donem].append(antrenman)
         
     print(haftalik_nested)    
     return render(request,'haftalik_antrenman.html',{'haftalik_list':haftalik_list,
