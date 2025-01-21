@@ -47,14 +47,19 @@ DAY_OF_WEEKS_CHOICES = (
 ANTRENMAN_YERI = (
     ('Hacettepe', "Hacettepe"),
     ('Atlas', "Atlas"),
-
-  
+)
+ANTRENMAN_TURU = (
+    ('Yüzme', "Yüzme"),
+    ('Kara', "Kara"),
 )
 class HaftalikAntrenman(models.Model):
     dayofweek=models.IntegerField(choices=DAY_OF_WEEKS_CHOICES)
-    saat=models.TimeField()
+    baslangic=models.TimeField()
+    bitis=models.TimeField(null=True)
     takim=models.ForeignKey(Takim,on_delete=models.CASCADE)
     yer=models.TextField(choices=ANTRENMAN_YERI,null=True)
+    tur=models.TextField(choices=ANTRENMAN_TURU,null=True)
+  
     def __str__(self):
         return str(self.dayofweek)
 

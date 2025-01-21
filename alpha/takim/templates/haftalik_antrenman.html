@@ -16,11 +16,28 @@
     </a>
 </div>
 
-<div class="flex">
-    {% for gun in  haftalik_list%}
-    <div class="order-{{gun.dayofweek}} bg-blue-300 p-4 m-2">
-        {{gun.get_dayofweek_display}}-{{gun.saat}}-{{gun.get_yer_display}}
+
+
+
+
+<div class="grid grid-cols-7">
+    {% for gun,ant in  haftalik_nested.items%}
+    <div class=" bg-blue-300 p-4 m-2">
+        {{gun}}
+
+        {% for antrenman in ant  %}
+        <div class=" bg-blue-300 p-4 m-2">
+          {{antrenman.tur}}
+          {{antrenman.get_yer_display}}<br>
+          {{antrenman.baslangic}}
+          {{antrenman.bitis}}
+          
+        </div>
+        {% endfor %}
       </div>
+      
+
+        
 
       {% endfor %}
 </div>

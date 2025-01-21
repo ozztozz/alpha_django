@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman
+from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
 from .forms import FormTakim,FormSporcu,FormAntrenman
 
 # Create your views here.
@@ -90,7 +90,7 @@ def antrenman_ekle(request):
            return redirect('antrenman_list')  # Adjust this to your post list view
    else:
        form = FormAntrenman()
-       print(form)
+       
    return render(request, 'antrenman_ekle.html', {'form': form})
 
 
@@ -109,5 +109,15 @@ def antrenman_guncelle(request,id):
     return render(request, "antrenman_ekle.html", {'form':form,'antrenman':antrenman})
 
 def haftalik_antrenman(request):
-    haftalik_list=HaftalikAntrenman.objects.all()
-    return render(request,'haftalik_antrenman.html',{'haftalik_list':haftalik_list})
+    haftalik_list=HaftalikAntrenman.objects.all().order_by('dayofweek',)
+    haftalik_nested={}
+    for gun in DAY_OF_WEEKS_CHOICES:
+        haftalik_nested[gun[1]]=list()
+    
+    for antrenman in haftalik_list:
+        gunluk=haftalik_nested.get(antrenman.get_dayofweek_display())
+        gunluk.append(antrenman)
+        
+    print(haftalik_nested)    
+    return render(request,'haftalik_antrenman.html',{'haftalik_list':haftalik_list,
+                                                     'haftalik_nested':haftalik_nested})
