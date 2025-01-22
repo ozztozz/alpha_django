@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
 from .forms import FormTakim,FormSporcu,FormAntrenman
-from datetime import  time
+from datetime import  time, datetime
 
 # Create your views here.
 
@@ -123,3 +123,9 @@ def haftalik_antrenman(request):
     print(haftalik_nested)    
     return render(request,'haftalik_antrenman.html',{'haftalik_list':haftalik_list,
                                                      'haftalik_nested':haftalik_nested})
+
+def antrenman_yap(request):
+    gun=datetime.today().weekday()
+    gun+=1
+    gunluk_antrenman=HaftalikAntrenman.objects.filter(dayofweek=gun)
+    return render(request,'antrenman.html',{'gunluk_antrenman':gunluk_antrenman})
