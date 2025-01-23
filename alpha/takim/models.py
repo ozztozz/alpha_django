@@ -35,13 +35,14 @@ class Ozellikler(models.Model):
 
 
 DAY_OF_WEEKS_CHOICES = (
-    (0, "Pazar"),
+    
     (1,"Pazartesi"),
-    (2,"Sali"),
-    (3,"Carsamba"),
-    (4,"Persembe"),
+    (2,"Salı"),
+    (3,"Çarsamba"),
+    (4,"Perşembe"),
     (5,"Cuma"),
     (6,"Cumartesi"),
+    (8, "Pazar"),
   
 )
 ANTRENMAN_YERI = (
