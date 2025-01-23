@@ -20,17 +20,17 @@
 
 
 
-<div class=" grid grid-cols-2 md:grid-cols-7 gap-1">
+<div class=" grid md:grid-cols-7 gap-1">
     {% for gun,ant in haftalik_nested.items%}
-    <div class=" relative m-1 h-full bg-blue-300 rounded-md ">
+    <div class=" relative h-full bg-blue-300 rounded-md ">
         <div class="font-bold text-center">{{gun}}</div>
         <div class="grid grid-rows-6 h-full text-sm">
             <div class="w-full row-span-2 p-0 m-0">
                 {% for antrenman in ant.sabah %}
                 <div class=" bg-blue-300 px-4 top-0 ">
 
-                    <span class="font-semibold  ">{{antrenman.get_yer_display}}</span><br>
-                    {{antrenman.tur}} <br>
+                    <span class="font-semibold  ">{{antrenman.get_yer_display}}-{{antrenman.tur}}</span>
+                     <br>
                     {{antrenman.baslangic}}
                     {{antrenman.bitis}}
 
@@ -50,8 +50,8 @@
                 {% for antrenman in ant.aksam %}
                 <div class=" bg-blue-300 px-4 py-0 ">
 
-                    <span class="font-semibold  ">{{antrenman.get_yer_display}}</span><br>
-                    {{antrenman.tur}} <br>
+                    <span class="font-semibold  ">{{antrenman.get_yer_display}}-{{antrenman.tur}}</span>
+                     <br>
                     {{antrenman.baslangic}}
                     {{antrenman.bitis}}
 
