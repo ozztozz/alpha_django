@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
 from .forms import FormTakim,FormSporcu,FormAntrenman
@@ -129,3 +131,10 @@ def antrenman_yap(request):
     gun+=1
     gunluk_antrenman=HaftalikAntrenman.objects.filter(dayofweek=gun)
     return render(request,'antrenman.html',{'gunluk_antrenman':gunluk_antrenman})
+
+
+def gunluk_ekle(request):
+    antrenman_id=int(request.POST.get('antrenman'))
+    sporcu_list=Sporcu.objects.filter(takim=antrenman_id)
+    response=render_to_string('sporcu_antrenman.html',{'sporcu_list':sporcu_list})
+    return HttpResponse(response)

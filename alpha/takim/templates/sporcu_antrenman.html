@@ -1,0 +1,20 @@
+<div class="flex">
+    {% for sporcu in sporcu_list %}
+
+<button>
+<div class="m-2"
+hx-vals='{"antrenman":"{{antrenman.takim.id}}"}'
+hx-post="gunluk_ekle"
+hx-trigger="click"
+hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+hx-target="#takim"
+>
+    <img
+
+    class="h-16 w-16 rounded-full" src="{{sporcu.resim.url}}" alt="">
+    <p>{{sporcu}}</p>
+</div>
+</button>
+
+{% endfor %}
+</div>
