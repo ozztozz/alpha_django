@@ -134,7 +134,11 @@ def antrenman_yap(request):
 
 
 def gunluk_ekle(request):
-    antrenman_id=int(request.POST.get('antrenman'))
-    sporcu_list=Sporcu.objects.filter(takim=antrenman_id)
-    response=render_to_string('sporcu_antrenman.html',{'sporcu_list':sporcu_list})
+    takim_id=int(request.POST.get('antrenman'))
+    takim=get_object_or_404(Takim,id=takim_id)
+    yeni_antrenman=Antrenman()
+    yeni_antrenman.save()
+    yeni_antrenman.takimlar.add(takim)
+    sporcu_list=Sporcu.objects.filter(takim=takim_id)
+    response=render_to_string('sporcu_antrenman.html',{'sporcu_list':sporcu_list,'antrenman':yeni_antrenman})
     return HttpResponse(response)

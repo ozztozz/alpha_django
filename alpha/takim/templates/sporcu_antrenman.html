@@ -3,7 +3,7 @@
 
 <button>
 <div class="m-2"
-hx-vals='{"antrenman":"{{antrenman.takim.id}}"}'
+hx-vals='{"antrenman":"{{antrenman.id}}","sporcu":{{sporcu.id}}}'
 hx-post="gunluk_ekle"
 hx-trigger="click"
 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
