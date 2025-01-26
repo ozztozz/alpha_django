@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
 from .forms import FormTakim,FormSporcu,FormAntrenman
 from datetime import  time, datetime
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -141,4 +142,11 @@ def gunluk_ekle(request):
     yeni_antrenman.takimlar.add(takim)
     sporcu_list=Sporcu.objects.filter(takim=takim_id)
     response=render_to_string('sporcu_antrenman.html',{'sporcu_list':sporcu_list,'antrenman':yeni_antrenman})
+    return HttpResponse(response)
+
+@csrf_exempt
+def htmx_sporcu_ekle(request):
+    sporcu=int(request.POST.get('sporcu'))
+    sporcu_list=Sporcu.objects.filter(id=sporcu)
+    response=render_to_string('sporcu_antrenman.html',{'sporcu_list':sporcu_list})
     return HttpResponse(response)

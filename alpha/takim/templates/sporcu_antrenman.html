@@ -2,18 +2,28 @@
     {% for sporcu in sporcu_list %}
 
 <button>
-<div class="m-2"
-hx-vals='{"antrenman":"{{antrenman.id}}","sporcu":{{sporcu.id}}}'
-hx-post="gunluk_ekle"
-hx-trigger="click"
-hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-hx-target="#takim"
->
-    <img
-
-    class="h-16 w-16 rounded-full" src="{{sporcu.resim.url}}" alt="">
-    <p>{{sporcu}}</p>
+    <div class="m-2"
+   
+hx-swap-oob="true"
+    
+    >ddddddddddd
 </div>
+    
+        <div class="m-2"
+            hx-vals='{"antrenman":"{{antrenman.id}}","sporcu":{{sporcu.id}}}'
+            hx-post="{% url "htmx_sporcu_ekle" %}"
+            hx-trigger="click"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-target="#giren"
+            hx-swap="afterbegin"
+            >
+            <img
+
+            class="h-16 w-16 rounded-full" src="{{sporcu.resim.url}}" alt="">
+            <p>{{sporcu}}</p>
+        </div>
+
+
 </button>
 
 {% endfor %}

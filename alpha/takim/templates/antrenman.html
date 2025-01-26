@@ -37,45 +37,13 @@
     </div>
     {% endfor %}
 </div>
-<div id="takim"></div>
-
-<div class="grid grid-cols-7">
-    {% for gun,ant in haftalik_nested.items%}
-    <div class=" grid-rows-10 gap-2 m-2 justify-between bg-blue-300 rounded-md ">
-        <div class="font-bold text-center">{{gun}}</div>
-
-        <div class="row-span-3">
-            {% for antrenman in gunluk_antrenman%}
-            <div class=" bg-blue-300 ">
-
-                <span class="font-semibold">{{antrenman.baslangic}}</span><br>
-                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
-                {{antrenman.tur}}-
-                {{antrenman.baslangic}}
-                {{antrenman.bitis}}
-
-            </div>
-            {% endfor %}
-        </div>
-        <div class=" w-full bg-blue-800 h-4"></div>
-
-        <div class="row-span-3">
-            {% for antrenman in ant.aksam %}
-            <div class=" bg-blue-300">
-
-                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
-                {{antrenman.tur}}-
-                {{antrenman.baslangic}}
-                {{antrenman.bitis}}
-
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
-
-
-
-    {% endfor %}
+<div id="takim">aaaaaaa</div>
+<div >
+    <div>-----------</div>
 </div>
+<div id="giren">
+    <div>bbbbbbbbbbbb</div>
+</div>
+
+
 {% endblock content %}
