@@ -146,7 +146,10 @@ def gunluk_ekle(request):
 
 @csrf_exempt
 def htmx_sporcu_ekle(request):
-    sporcu=int(request.POST.get('sporcu'))
-    sporcu_list=Sporcu.objects.filter(id=sporcu)
-    response=render_to_string('sporcu_antrenman.html',{'sporcu_list':sporcu_list})
+    sporcu_id=int(request.POST.get('sporcu'))
+    ekle_cikar=request.POST.get('ekle_cikar')
+    print(ekle_cikar)
+    sporcu_tek=get_object_or_404(Sporcu,id=sporcu_id)
+    response=render_to_string('sporcu_antrenman.html',{'sporcu_tek':sporcu_tek,
+                                                       'ekle_cikar':ekle_cikar})
     return HttpResponse(response)
