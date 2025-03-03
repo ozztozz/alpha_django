@@ -20,36 +20,48 @@
 
 
 
-<div class="grid grid-cols-7">
+<div class=" grid md:grid-cols-7 gap-1">
     {% for gun,ant in haftalik_nested.items%}
-    <div class=" grid-rows-10 gap-2 m-2 justify-between bg-blue-300 rounded-md ">
+    <div class=" relative h-full bg-blue-300 rounded-md ">
         <div class="font-bold text-center">{{gun}}</div>
+        <div class="grid grid-rows-6 h-full text-sm">
+            <div class="w-full row-span-2 p-0 m-0">
+                {% for antrenman in ant.sabah %}
+                <div class=" bg-blue-300 px-4 top-0 ">
 
-        <div class="row-span-3">
-            {% for antrenman in ant.sabah %}
-            <div class=" bg-blue-300 ">
+                    <span class="font-semibold  ">{{antrenman.get_yer_display}}-{{antrenman.tur}}</span>
+                     <br>
+                    {{antrenman.baslangic}}
+                    {{antrenman.bitis}}
 
-                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
-                {{antrenman.tur}}-
-                {{antrenman.baslangic}}
-                {{antrenman.bitis}}
-
+                </div>
+                {% empty %}
+                <div class=" w-full bg-blue-950  ">
+                    <div class="text-center text-white text-xl">OFF</div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <div class=" w-full bg-blue-800 h-4"></div>
+            
+            <div class=" w-full bg-blue-500 h-4 m-0 p-0  "></div>
+                
+        
 
-        <div class="row-span-3">
-            {% for antrenman in ant.aksam %}
-            <div class=" bg-blue-300">
+            <div class="w-full row-span-4 top-0">
+                {% for antrenman in ant.aksam %}
+                <div class=" bg-blue-300 px-4 py-0 ">
 
-                <span class="font-semibold">{{antrenman.get_yer_display}}</span><br>
-                {{antrenman.tur}}-
-                {{antrenman.baslangic}}
-                {{antrenman.bitis}}
+                    <span class="font-semibold  ">{{antrenman.get_yer_display}}-{{antrenman.tur}}</span>
+                     <br>
+                    {{antrenman.baslangic}}
+                    {{antrenman.bitis}}
 
+                </div>
+                {% empty %}
+                <div class=" w-full bg-blue-950   ">
+                    <div class="text-center text-white text-xl">OFF</div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
 

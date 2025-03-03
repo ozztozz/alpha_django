@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
 from .forms import FormTakim,FormSporcu,FormAntrenman
-from datetime import  time
+from datetime import  time, datetime
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -125,4 +128,32 @@ def haftalik_antrenman(request):
                                                      'haftalik_nested':haftalik_nested})
 
 def antrenman_yap(request):
+<<<<<<< HEAD
     return render (request,'antrenman.html')
+=======
+    gun=datetime.today().weekday()
+    gun+=1
+    gunluk_antrenman=HaftalikAntrenman.objects.filter(dayofweek=gun)
+    return render(request,'antrenman.html',{'gunluk_antrenman':gunluk_antrenman})
+
+
+def gunluk_ekle(request):
+    takim_id=int(request.POST.get('antrenman'))
+    takim=get_object_or_404(Takim,id=takim_id)
+    yeni_antrenman=Antrenman()
+    yeni_antrenman.save()
+    yeni_antrenman.takimlar.add(takim)
+    sporcu_list=Sporcu.objects.filter(takim=takim_id)
+    response=render_to_string('sporcu_antrenman.html',{'sporcu_list':sporcu_list,'antrenman':yeni_antrenman})
+    return HttpResponse(response)
+
+@csrf_exempt
+def htmx_sporcu_ekle(request):
+    sporcu_id=int(request.POST.get('sporcu'))
+    ekle_cikar=request.POST.get('ekle_cikar')
+    print(ekle_cikar)
+    sporcu_tek=get_object_or_404(Sporcu,id=sporcu_id)
+    response=render_to_string('sporcu_antrenman.html',{'sporcu_tek':sporcu_tek,
+                                                       'ekle_cikar':ekle_cikar})
+    return HttpResponse(response)
+>>>>>>> da9b8a88fc1954b0ba7d7f79a9fecb38544281da

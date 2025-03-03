@@ -1,5 +1,6 @@
 from django.db import models
 from main.models import Antrenor
+from datetime import date
 
 # Create your models here.
 
@@ -35,13 +36,14 @@ class Ozellikler(models.Model):
 
 
 DAY_OF_WEEKS_CHOICES = (
-    (0, "Pazar"),
+    
     (1,"Pazartesi"),
-    (2,"Sali"),
-    (3,"Carsamba"),
-    (4,"Persembe"),
+    (2,"Salı"),
+    (3,"Çarsamba"),
+    (4,"Perşembe"),
     (5,"Cuma"),
     (6,"Cumartesi"),
+    (8, "Pazar"),
   
 )
 ANTRENMAN_YERI = (
@@ -64,10 +66,10 @@ class HaftalikAntrenman(models.Model):
         return str(self.dayofweek)
 
 class Antrenman(models.Model):
-    gun=models.DateField()
+    gun=models.DateField(auto_now_add=True)
     takimlar=models.ManyToManyField(Takim)
     sporcular=models.ManyToManyField(Sporcu,null=True,blank=True)
-    mesafe=models.IntegerField()
+    mesafe=models.IntegerField(default=0)
 
     class Meta:
         ordering=['-gun']
