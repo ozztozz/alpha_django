@@ -123,3 +123,6 @@ def haftalik_antrenman(request):
     print(haftalik_nested)    
     return render(request,'haftalik_antrenman.html',{'haftalik_list':haftalik_list,
                                                      'haftalik_nested':haftalik_nested})
+
+def antrenman_yap(request):
+    return render (request,'antrenman.html')
