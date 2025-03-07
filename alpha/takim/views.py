@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
+from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
 from .forms import FormTakim,FormSporcu,FormAntrenman
 from datetime import  time, datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -128,9 +128,8 @@ def haftalik_antrenman(request):
                                                      'haftalik_nested':haftalik_nested})
 
 def antrenman_yap(request):
-<<<<<<< HEAD
+
     return render (request,'antrenman.html')
-=======
     gun=datetime.today().weekday()
     gun+=1
     gunluk_antrenman=HaftalikAntrenman.objects.filter(dayofweek=gun)
@@ -156,4 +155,7 @@ def htmx_sporcu_ekle(request):
     response=render_to_string('sporcu_antrenman.html',{'sporcu_tek':sporcu_tek,
                                                        'ekle_cikar':ekle_cikar})
     return HttpResponse(response)
->>>>>>> da9b8a88fc1954b0ba7d7f79a9fecb38544281da
+
+def yaris_list(request):
+    yaris_list=Yarislar.objects.all()
+    return render(request,'yaris_list.html',{'yaris_list':yaris_list})

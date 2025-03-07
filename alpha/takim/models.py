@@ -73,3 +73,22 @@ class Antrenman(models.Model):
 
     class Meta:
         ordering=['-gun']
+
+class Yarislar(models.Model):
+    yaris=models.CharField(max_length=100)
+    sehir=models.CharField(max_length=100)
+    tarih=models.CharField(max_length=100)
+    cinsiyet=models.CharField(max_length=100)
+    mesafe=models.CharField(max_length=100)
+    brans=models.CharField(max_length=100)
+    kategori=models.CharField(max_length=100)
+    siralama=models.CharField(max_length=100)
+    sporcu=models.CharField(max_length=100)
+    yas=models.IntegerField()
+    takim=models.CharField(max_length=100)
+    zaman=models.CharField(max_length=100)
+    puan=models.CharField(max_length=100)
+    sporcu_id=models.ForeignKey(Sporcu,on_delete=models.CASCADE)
+
+
+
