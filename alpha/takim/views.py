@@ -157,5 +157,23 @@ def htmx_sporcu_ekle(request):
     return HttpResponse(response)
 
 def yaris_list(request):
-    yaris_list=Yarislar.objects.all()
+    yaris_list=Yarislar.objects.all().order_by('brans','mesafe','zaman',)
     return render(request,'yaris_list.html',{'yaris_list':yaris_list})
+
+from datetime import datetime
+def sporcu_detail(request):
+    sporcu=get_object_or_404(Sporcu,id=1)
+    yarislar=sporcu.yarislar_set.filter(mesafe='200',brans='Karışık')
+    yaris_data=[]
+
+    xValues = []
+    yValues = []
+    for yaris in yarislar:
+        xValues.append(yaris.tarih.day)
+        yValues.append(yaris.zaman.second+yaris.zaman.minute*60)
+
+    return render(request,'sporcu_detail.html',{'sporcu':sporcu,
+                                                'yarislar':yarislar,
+                                                'xValues':xValues,
+                                                'yValues':yValues,
+                                                })

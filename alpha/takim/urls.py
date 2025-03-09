@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import base,takim_list,takim_ekle,takim_guncelle,sporcu_list,sporcu_ekle,sporcu_guncelle,antrenman_list,antrenman_ekle,antrenman_guncelle,haftalik_antrenman,antrenman_yap
-from .views import gunluk_ekle,htmx_sporcu_ekle,yaris_list
+from .views import gunluk_ekle,htmx_sporcu_ekle,yaris_list,sporcu_detail
 
 urlpatterns = [
     path('',base,name='takim'),
@@ -21,6 +21,7 @@ urlpatterns = [
     path('htmx_sporcu_ekle/',htmx_sporcu_ekle,name='htmx_sporcu_ekle'),
 
     path('yarislar/',yaris_list,name='yaris_list'),
+    path('sporcu_detail/',sporcu_detail,name='sporcu_detail'),
 
 
 ]

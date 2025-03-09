@@ -1,0 +1,47 @@
+{% extends "_base_takim.html" %}
+{% load account_tags %}
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+
+
+<div>
+    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+
+    <script>
+        const xValues = {{ xValues }};
+        const yValues = {{ yValues }};
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    yAxes: [{ ticks: { min: 0, max: 300 } }],
+
+                }
+            }
+        });
+    </script>
+</div>
+<div>
+    {{sporcu.adi}}
+    {{sporcu.soyadi}}
+
+    {{xValues}}
+    {{yValues}}
+</div>
+
+{% endblock content %}

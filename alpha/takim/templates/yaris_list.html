@@ -45,10 +45,12 @@
             <tr
                 class="relative max-h-20 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
+                <td class="px-2 py-4 max-w-20 flex-wrap">{{yaris.yaris}}</td>
+                <td class="px-2 py-4 max-w-20 flex-wrap">{{yaris.tarih|date}}</td>
                 <td class="px-2 py-4 max-w-20 flex-wrap">{{yaris.mesafe}}</td>
                 <td class="px-2 py-4 max-w-20 flex-wrap">{{yaris.brans}}</td>
                 <td class="px-2 py-4 max-w-20 flex-wrap">{{yaris.sporcu}}</td>
-                <td class="px-2 py-4 max-w-20 ">{{yaris.zaman|time}}</td>
+                <td class="px-2 py-4 max-w-20 ">{{yaris.zaman|time:"i:s" }}:{{ yaris.zaman|time:"u"|slice:":2" }}</td>
 
             </tr>
             {% endfor %}
