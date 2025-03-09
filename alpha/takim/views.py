@@ -163,13 +163,13 @@ def yaris_list(request):
 from datetime import datetime
 def sporcu_detail(request):
     sporcu=get_object_or_404(Sporcu,id=1)
-    yarislar=sporcu.yarislar_set.filter(mesafe='200',brans='Karışık')
+    yarislar=sporcu.yarislar_set.filter(mesafe='200',brans='Karışık').order_by('tarih')
     yaris_data=[]
 
     xValues = []
     yValues = []
     for yaris in yarislar:
-        xValues.append(yaris.tarih.day)
+        xValues.append(yaris.tarih.strftime("%Y-%m-%d"))
         yValues.append(yaris.zaman.second+yaris.zaman.minute*60)
 
     return render(request,'sporcu_detail.html',{'sporcu':sporcu,

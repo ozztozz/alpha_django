@@ -11,7 +11,7 @@
 
 
     <script>
-        const xValues = {{ xValues }};
+        const xValues = {{ xValues| safe }};
         const yValues = {{ yValues }};
 
         new Chart("myChart", {
@@ -30,6 +30,7 @@
                 legend: { display: false },
                 scales: {
                     yAxes: [{ ticks: { min: 0, max: 300 } }],
+
 
                 }
             }
