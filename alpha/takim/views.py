@@ -185,7 +185,8 @@ def htmx_grafik(request,sporcu_id,brans,mesafe):
             yValues.append(yaris.zaman.second/100+yaris.zaman.minute)
         else:
             yValues.append(yaris.zaman.second+yaris.zaman.minute*60)
-
-    return TemplateResponse(request,'grafik.html',{'xValues':xValues,'yValues':yValues})
+    response=render(request,'grafik.html',{'xValues':xValues,'yValues':yValues})
+    response['HX-Trigger'] = 'update-graph'
+    return response
     
     
