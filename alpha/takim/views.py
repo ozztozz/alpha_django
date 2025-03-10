@@ -158,22 +158,34 @@ def htmx_sporcu_ekle(request):
 
 def yaris_list(request):
     yaris_list=Yarislar.objects.all().order_by('brans','mesafe','zaman',)
+    print(type(yaris_list[0].zaman))  
     return render(request,'yaris_list.html',{'yaris_list':yaris_list})
 
 from datetime import datetime
+from django.db.models import Min
+from django.db import models
+
+
+
+
 def sporcu_detail(request):
     sporcu=get_object_or_404(Sporcu,id=1)
-    yarislar=sporcu.yarislar_set.filter(mesafe='200',brans='Karışık').order_by('tarih')
-    yaris_data=[]
-
+    yaris_list=Yarislar.objects.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(total=Min('zaman')).order_by('brans')
+    return render(request,'sporcu_detail.html',{'sporcu':sporcu,
+                                                'yaris_list':yaris_list, })
+from django.template.response import TemplateResponse
+def htmx_grafik(request,sporcu_id,brans,mesafe):
+    yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,brans=brans,mesafe=mesafe).order_by('mesafe','brans','tarih')
+    
     xValues = []
     yValues = []
     for yaris in yarislar:
         xValues.append(yaris.tarih.strftime("%Y-%m-%d"))
-        yValues.append(yaris.zaman.second+yaris.zaman.minute*60)
+        if yaris.zaman.minute>0:
+            yValues.append(yaris.zaman.second/100+yaris.zaman.minute)
+        else:
+            yValues.append(yaris.zaman.second+yaris.zaman.minute*60)
 
-    return render(request,'sporcu_detail.html',{'sporcu':sporcu,
-                                                'yarislar':yarislar,
-                                                'xValues':xValues,
-                                                'yValues':yValues,
-                                                })
+    return TemplateResponse(request,'grafik.html',{'xValues':xValues,'yValues':yValues})
+    
+    
