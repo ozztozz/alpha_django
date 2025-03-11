@@ -5,5 +5,4 @@
 /myenv
 /alpha/node_modules
 /node_modules
-/alpha/account/__pycache__
-/alpha/alpha/__pycache__
+__pycache__
