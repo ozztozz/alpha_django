@@ -162,7 +162,7 @@ def yaris_list(request):
     return render(request,'yaris_list.html',{'yaris_list':yaris_list})
 
 from datetime import datetime
-from django.db.models import Min
+from django.db.models import Min,Max
 from django.db import models
 
 
@@ -170,9 +170,36 @@ from django.db import models
 
 def sporcu_detail(request):
     sporcu=get_object_or_404(Sporcu,id=1)
-    yaris_list=Yarislar.objects.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(total=Min('zaman')).order_by('brans')
+    yaris_list_query=Yarislar.objects.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(total=Min('zaman'),best_tarih=Max('tarih')).order_by('brans')
+    yaris_list=list(yaris_list_query)
+    
+    for yaris_sonuc in yaris_list:
+        
+            
+        yarislar=Yarislar.objects.filter(sporcu_id=1,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','tarih')
+        xValues = []
+        yValues = []
+        for yaris in yarislar:
+            xValues.append(yaris.tarih.strftime("%d.%m.%y"))
+            if yaris.zaman.minute>0:
+                yValues.append(yaris.zaman.microsecond / 100000000+yaris.zaman.second/100+yaris.zaman.minute)
+            else:
+                yValues.append(yaris.zaman.second+yaris.zaman.microsecond / 1000000)
+        yaris_sonuc['xValues']=xValues
+        yaris_sonuc['yValues']=yValues
+    
+    
+    
     return render(request,'sporcu_detail.html',{'sporcu':sporcu,
-                                                'yaris_list':yaris_list, })
+                                                'yaris_list':yaris_list,
+                                              
+                                                  })
+
+
+
+
+
+
 from django.template.response import TemplateResponse
 def htmx_grafik(request,sporcu_id,brans,mesafe):
     yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,brans=brans,mesafe=mesafe).order_by('mesafe','brans','tarih')
@@ -182,9 +209,9 @@ def htmx_grafik(request,sporcu_id,brans,mesafe):
     for yaris in yarislar:
         xValues.append(yaris.tarih.strftime("%Y-%m-%d"))
         if yaris.zaman.minute>0:
-            yValues.append(yaris.zaman.second/100+yaris.zaman.minute)
+            yValues.append(yaris.zaman.microsecond / 100000000+yaris.zaman.second/100+yaris.zaman.minute)
         else:
-            yValues.append(yaris.zaman.second+yaris.zaman.minute*60)
+            yValues.append(yaris.zaman.second+yaris.zaman.microsecond / 1000000)
     response=render(request,'grafik.html',{'xValues':xValues,'yValues':yValues})
     response['HX-Trigger'] = 'update-graph'
     return response
