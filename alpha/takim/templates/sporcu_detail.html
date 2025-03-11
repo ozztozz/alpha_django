@@ -74,14 +74,23 @@
                             {{sporcu.adi}} {{sporcu.soyadi}} <br>
                             <span id="brans_mesafe"></span></button>
                     </div>
-                    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-
+                    <div id="graph_container">
+                        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+                    </div>
                     <script>
 
 
 
                         function loadChart(xValues, yValues, brans) {
                             document.getElementById('brans_mesafe').innerText = brans
+
+                            var appended = document.createElement('canvas'); // is a node
+                            appended.style.cssText = "width:100%;max-width:700px"
+                            appended.id = 'myChart'
+                            document.getElementById('myChart').remove(); // this is my <canvas> element
+                            const graph_container = document.getElementById('graph_container');
+                            graph_container.appendChild(appended);
+
                             new Chart("myChart", {
                                 type: "line",
                                 data: {
