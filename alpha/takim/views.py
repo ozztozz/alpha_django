@@ -168,15 +168,15 @@ from django.db import models
 
 
 
-def sporcu_detail(request):
-    sporcu=get_object_or_404(Sporcu,id=1)
-    yaris_list_query=Yarislar.objects.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(total=Min('zaman'),best_tarih=Max('tarih')).order_by('brans')
+def sporcu_detail(request,sporcu_id):
+    sporcu=get_object_or_404(Sporcu,id=sporcu_id)
+    yaris_list_query=Yarislar.objects.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(total=Min('zaman'),best_tarih=Max('tarih')).order_by('-best_tarih','brans')
     yaris_list=list(yaris_list_query)
     
     for yaris_sonuc in yaris_list:
         
             
-        yarislar=Yarislar.objects.filter(sporcu_id=1,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','tarih')
+        yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','tarih')
         xValues = []
         yValues = []
         for yaris in yarislar:

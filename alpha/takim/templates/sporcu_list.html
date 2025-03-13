@@ -26,16 +26,10 @@
                     Adi Soyadi
                 </th>
                 <th scope="col" class="px-2">
-                    Anne Adi
-                </th>
-                <th scope="col" class="px-2 hidden md:visible">
-                    Baba Adi
-                </th>
-                <th scope="col" class="px-2">
                     Takimi
                 </th>
                 <th scope="col" class="px-2">
-                    <span class="sr-only">Guncelle</span>
+                    <span class="sr-only">Yarışlar</span>
                 </th>
             </tr>
         </thead>
@@ -51,12 +45,7 @@
                 <th scope="row" class="px-2 font-medium text-gray-900  dark:text-white">
                     {{sporcu.adi}} {{sporcu.soyadi}}
                 </th>
-                <td class="px-2">
-                    {{sporcu.anne}}
-                </td>
-                <td class="px-2 hidden md:visible">
-                    {{sporcu.baba}}
-                </td>
+
                 
                 <td class="px-2">
                     {{sporcu.takim.adi}}
@@ -65,8 +54,8 @@
                 
 
                 <td class="px-2 text-right">
-                    <a href="/takim/sporcu_guncelle/{{sporcu.id}}"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Guncelle</a>
+                    <a href="/takim/sporcu_detail/{{sporcu.id}}"
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Yarışlar</a>
                 </td>
             </tr>
             {% endfor %}

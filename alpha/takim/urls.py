@@ -22,7 +22,7 @@ urlpatterns = [
     path('grafik/<int:sporcu_id>/<str:brans>/<str:mesafe>/',htmx_grafik,name='htmx_grafik'),
 
     path('yarislar/',yaris_list,name='yaris_list'),
-    path('sporcu_detail/',sporcu_detail,name='sporcu_detail'),
+    path('sporcu_detail/<int:sporcu_id>',sporcu_detail,name='sporcu_detail'),
 
 
 ]
