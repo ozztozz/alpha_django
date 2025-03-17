@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
+from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES,Barajlar
 from .forms import FormTakim,FormSporcu,FormAntrenman
 from datetime import  time, datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -163,7 +163,6 @@ def yaris_list(request):
 
 from datetime import datetime
 from django.db.models import Min,Max
-from django.db import models
 
 
 
@@ -174,9 +173,8 @@ def sporcu_detail(request,sporcu_id):
     yaris_list=list(yaris_list_query)
     
     for yaris_sonuc in yaris_list:
-        
-            
-        yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','tarih')
+        baraj=Barajlar.objects.filter(brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','-tarih')
+        yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','-tarih')[:7][::-1]
         xValues = []
         yValues = []
         for yaris in yarislar:
@@ -187,6 +185,9 @@ def sporcu_detail(request,sporcu_id):
                 yValues.append(yaris.zaman.second+yaris.zaman.microsecond / 1000000)
         yaris_sonuc['xValues']=xValues
         yaris_sonuc['yValues']=yValues
+        yaris_sonuc['baraj']=baraj
+        for item in baraj:
+            print(item.brans)
     
     
     

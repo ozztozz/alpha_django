@@ -91,4 +91,16 @@ class Yarislar(models.Model):
     sporcu_id=models.ForeignKey(Sporcu,on_delete=models.CASCADE)
 
 
+class Barajlar (models.Model):
+    yaris=models.CharField(max_length=100)
+    sehir=models.CharField(max_length=100)
+    tarih=models.CharField(max_length=100)
+    cinsiyet=models.CharField(max_length=100)
+    mesafe=models.CharField(max_length=100)
+    brans=models.CharField(max_length=100)
+    yas=models.IntegerField()
+    baraj_turu=models.CharField(max_length=100)
+    baraj=models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.yaris + self.mesafe + self.brans
