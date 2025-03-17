@@ -173,7 +173,8 @@ def sporcu_detail(request,sporcu_id):
     yaris_list=list(yaris_list_query)
     
     for yaris_sonuc in yaris_list:
-        baraj=Barajlar.objects.filter(brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','-tarih')
+        baraj=Barajlar.objects.filter(cinsiyet=sporcu.cinsiyet,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','-tarih')
+        
         yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','-tarih')[:7][::-1]
         xValues = []
         yValues = []
@@ -186,6 +187,7 @@ def sporcu_detail(request,sporcu_id):
         yaris_sonuc['xValues']=xValues
         yaris_sonuc['yValues']=yValues
         yaris_sonuc['baraj']=baraj
+        
         for item in baraj:
             print(item.brans)
     

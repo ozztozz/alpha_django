@@ -18,6 +18,7 @@ class Sporcu (models.Model):
     soyadi=models.CharField(max_length=30)
     anne=models.CharField(max_length=30)
     baba=models.CharField(max_length=30)
+    cinsiyet=models.CharField(max_length=30)
     dogum_tarihi=models.DateField()
     okulu=models.CharField(max_length=30)
     resim=models.ImageField(upload_to='media/')

@@ -42,7 +42,11 @@
                     {{form.baba }}
                 </div>
 
-              
+                <div class="w-full">
+                    <label for="cinsiyet" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Cinsiyet</label>
+                    {{ form.cinsiyet.errors }}
+                    {{ form.cinsiyet}}
+                </div>
                 <div class="w-full">
                     <label for="dogum_tarihi" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Dogum Tarihi</label>
                     {{ form.dogum_tarihi.errors }}

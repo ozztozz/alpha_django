@@ -1,5 +1,5 @@
 {% extends "_base_takim.html" %}
-{% load account_tags %}
+{% load template_tags %}
 {% block content %}
 
 
@@ -43,7 +43,7 @@
                             Branş-Mesafe
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Best TimeSon Yarış
+                            Son Yarış
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Best Time
@@ -69,16 +69,9 @@
                         <td class="px-2 max-w-20 flex-wrap">{{yaris.brans}} {{yaris.mesafe}}</td>
 
                         <td class="px-2 max-w-20 flex-wrap">{{yaris.best_tarih|slice:"0:11" }}</td>
-                        <td class="px-2 max-w-20 flex-wrap {%if yaris.total < yaris.baraj.0.baraj %} bg-green-400 {% endif %} ">{{yaris.total|slice:"3:11"}}</td>
-                        <td class="px-2 max-w-20 flex-wrap" >
-                            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width:
-                                {% with total_price=product.price|devide:product.quantity %}
-                                     <p>Total Price: {{ total_price }}</p>
-                                                        {% endwith %} %"></div>
-                              </div>
-                            
-                            {{yaris.baraj.0.baraj |slice:"3:11" }}</td>
+                        <td class="px-2 max-w-20 flex-wrap  ">{{yaris.total|slice:"3:11"}}</td>
+                        <td class="px-2 max-w-20 flex-wrap {%if yaris.total < yaris.baraj.0.baraj %} bg-green-200 {% endif %} ">{{yaris.baraj.0.baraj|slice:"3:11"}}</td>
+              
       
         
 
