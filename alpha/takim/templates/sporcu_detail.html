@@ -35,6 +35,8 @@
             </div>
             </div>
         </div>
+
+            
         <div class="flex w-full shadow-md sm:rounded-lg justify-center">
             <table class=" w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -43,13 +45,13 @@
                             Branş-Mesafe
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Best TimeSon Yarış
+                            Son Yarış
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Best Time
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            {{yaris_list.0.baraj.0.sehir}} BARAJLAR
+                            {{yaris_list.0.barajlar.0.sehir}} <br> {{yaris_list.0.barajlar.0.tarih}}
                         </th>
                     </tr>
                 </thead>
@@ -61,28 +63,26 @@
                     {% for yaris in yaris_list %}
                     
                     <tr
-                    onclick="updateChart({{yaris.xValues}},{{yaris.yValues}},'{{yaris.brans}} - {{yaris.mesafe}}','{{yaris.total|slice:"3:11"}}')"
+                    onclick="updateChart({{yaris.xValues}},{{yaris.yValues}},'{{yaris.brans}} - {{yaris.mesafe}}','{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}')"
                     data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="w-full max-h-20 bg-white border-b focus:bg-gray-500 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                        
                         <td class="px-2 max-w-20 flex-wrap">{{yaris.brans}} {{yaris.mesafe}}</td>
 
-                        <td class="px-2 max-w-20 flex-wrap">{{yaris.best_tarih|slice:"0:11" }}</td>
-                        <td class="px-2 max-w-20 flex-wrap {%if yaris.total < yaris.baraj.0.baraj %} bg-green-400 {% endif %} ">{{yaris.total|slice:"3:11"}}</td>
-                        <td class="px-2 max-w-20 flex-wrap" >
-                            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width:
-                                {% with total_price=product.price|devide:product.quantity %}
-                                     <p>Total Price: {{ total_price }}</p>
-                                                        {% endwith %} %"></div>
-                              </div>
+                        <td class="px-2 max-w-20 flex-wrap">{{yaris.son_yaris|slice:"0:11" }}</td>
+                        <td class="px-2 max-w-20 flex-wrap  ">{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}</td>
+                        
+                        {% for baraj in yaris.barajlar  %}
+                        <td class="px-2 max-w-20 flex-wrap {%if yaris.best_time < baraj.baraj %} bg-green-400 {% endif %}" >
+                            {{baraj.baraj|time:"i:s.u"|slice:"0:8" }}
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > baraj.baraj %} {{yaris.fark.0}} {% endif %}</span>
                             
-                            {{yaris.baraj.0.baraj |slice:"3:11" }}</td>
-      
-        
-
-                    </tr>
+                        
+                        </td>
+                        {% endfor %}
+                        
+              
                 
                     {% endfor %}
                 </tbody>
