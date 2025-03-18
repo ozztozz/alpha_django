@@ -70,7 +70,6 @@
                        
                         <td class="px-2 max-w-20 flex-wrap">{{yaris.brans}} {{yaris.mesafe}}</td>
 
-<<<<<<< HEAD
                         <td class="px-2 max-w-20 flex-wrap">{{yaris.best_tarih|slice:"0:11" }}</td>
                         <td class="px-2 max-w-20 flex-wrap  ">{{yaris.total|slice:"3:11"}}</td>
                         <td class="px-2 max-w-20 flex-wrap {%if yaris.total < yaris.baraj.0.baraj %} bg-green-200 {% endif %} ">{{yaris.baraj.0.baraj|slice:"3:11"}}</td>
@@ -79,21 +78,6 @@
         
 
                     </tr>
-=======
-                        <td class="px-2 max-w-20 flex-wrap">{{yaris.son_yaris|slice:"0:11" }}</td>
-                        <td class="px-2 max-w-20 flex-wrap  ">{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}</td>
-                        
-                        {% for baraj in yaris.barajlar  %}
-                        <td class="px-2 max-w-20 flex-wrap {%if yaris.best_time < baraj.baraj %} bg-green-400 {%else%}  bg-yellow-200 {% endif %}" >
-                            {{baraj.baraj|time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > baraj.baraj %} - {{yaris.fark.0}} {% endif %}</span>
-                            
-                        
-                        </td>
-                        {% endfor %}
-                        
-              
->>>>>>> 710074b985319ce391ae10957c75a9f1c889ea55
                 
                     {% endfor %}
                 </tbody>
