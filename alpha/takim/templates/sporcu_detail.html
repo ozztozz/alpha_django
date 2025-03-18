@@ -74,9 +74,9 @@
                         <td class="px-2 max-w-20 flex-wrap  ">{{yaris.best_time|time:"i:s.u"|slice:"0:8"}}</td>
                         
                         {% for baraj in yaris.barajlar  %}
-                        <td class="px-2 max-w-20 flex-wrap {%if yaris.best_time < baraj.baraj %} bg-green-400 {% endif %}" >
+                        <td class="px-2 max-w-20 flex-wrap {%if yaris.best_time < baraj.baraj %} bg-green-400 {%else%}  bg-yellow-200 {% endif %}" >
                             {{baraj.baraj|time:"i:s.u"|slice:"0:8" }}
-                            <span class="font-semibold text-red-400">{%if yaris.best_time > baraj.baraj %} {{yaris.fark.0}} {% endif %}</span>
+                            <span class="font-semibold text-red-400">{%if yaris.best_time > baraj.baraj %} - {{yaris.fark.0}} {% endif %}</span>
                             
                         
                         </td>
