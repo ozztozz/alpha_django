@@ -5,7 +5,7 @@ from datetime import date
 # Create your models here.
 
 
-<<<<<<< HEAD
+
 class Takim (models.Model):
     adi=models.CharField(max_length=30)
     antrenor=models.ManyToManyField(Antrenor)
@@ -37,8 +37,7 @@ class Ozellikler(models.Model):
     sporcu=models.ForeignKey(Sporcu,on_delete=models.CASCADE)
 
 
-=======
->>>>>>> 710074b985319ce391ae10957c75a9f1c889ea55
+
 DAY_OF_WEEKS_CHOICES = (
     
     (1,"Pazartesi"),

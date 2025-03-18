@@ -175,29 +175,9 @@ def sporcu_detail(request,sporcu_id):
     yaris_list=list(yaris_list_query)
     
     for yaris_sonuc in yaris_list:
-<<<<<<< HEAD
         baraj=Barajlar.objects.filter(cinsiyet=sporcu.cinsiyet,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','-tarih')
         
         yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,brans=yaris_sonuc['brans'],mesafe=yaris_sonuc['mesafe']).order_by('mesafe','brans','-tarih')[:7][::-1]
-=======
-        baraj_query=Barajlar.objects.filter(brans=yaris_sonuc['brans'],
-                                      mesafe=yaris_sonuc['mesafe'],
-                                      tarih__gte=datetime.now(),
-                                      cinsiyet=sporcu.cinsiyet,
-                                      yas=sporcu_yas
-                                      )
-        
-        fark=[]
-        barajlar=list(baraj_query)
-        for item in barajlar:
-            diff = datetime.combine(datetime.now().date(), yaris_sonuc['best_time'])-datetime.combine(datetime.now().date(), item.baraj)
-            fark.append(diff.seconds+diff.microseconds/1000000)
- 
-        yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,
-                                         brans=yaris_sonuc['brans'],
-                                         mesafe=yaris_sonuc['mesafe']
-                                         ).order_by('mesafe','brans','-tarih')[:7][::-1]
->>>>>>> 710074b985319ce391ae10957c75a9f1c889ea55
         xValues = []
         yValues = []
         for yaris in yarislar:
@@ -209,16 +189,10 @@ def sporcu_detail(request,sporcu_id):
         
         yaris_sonuc['xValues']=xValues
         yaris_sonuc['yValues']=yValues
-<<<<<<< HEAD
         yaris_sonuc['baraj']=baraj
         
         for item in baraj:
             print(item.brans)
-=======
-        yaris_sonuc['barajlar']=barajlar
-        yaris_sonuc['fark']=fark
-
->>>>>>> 710074b985319ce391ae10957c75a9f1c889ea55
     
     
     
