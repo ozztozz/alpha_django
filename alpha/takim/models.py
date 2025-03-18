@@ -112,4 +112,4 @@ class Barajlar (models.Model):
     baraj=models.TimeField()
 
     def __str__(self):
-        return self.yaris + self.mesafe + self.brans
+        return self.sehir+ '-'+ self.cinsiyet +'-'+  self.mesafe +'-'+  self.brans
