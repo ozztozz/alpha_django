@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Takim,Sporcu,Antrenman,Ozellikler,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES
+from .models import Takim,Sporcu,Antrenman,Yarislar,HaftalikAntrenman,DAY_OF_WEEKS_CHOICES,Barajlar
 from .forms import FormTakim,FormSporcu,FormAntrenman
 from datetime import  time, datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -128,6 +128,8 @@ def haftalik_antrenman(request):
                                                      'haftalik_nested':haftalik_nested})
 
 def antrenman_yap(request):
+
+    return render (request,'antrenman.html')
     gun=datetime.today().weekday()
     gun+=1
     gunluk_antrenman=HaftalikAntrenman.objects.filter(dayofweek=gun)
@@ -153,3 +155,67 @@ def htmx_sporcu_ekle(request):
     response=render_to_string('sporcu_antrenman.html',{'sporcu_tek':sporcu_tek,
                                                        'ekle_cikar':ekle_cikar})
     return HttpResponse(response)
+
+def yaris_list(request):
+    yaris_list=Yarislar.objects.all().order_by('brans','mesafe','zaman',)
+    print(type(yaris_list[0].zaman))  
+    return render(request,'yaris_list.html',{'yaris_list':yaris_list})
+
+from datetime import datetime,timedelta
+from django.db.models import Min,Max
+
+
+
+
+def sporcu_detail(request,sporcu_id):
+    sporcu=get_object_or_404(Sporcu,id=sporcu_id)
+    sporcu_yas=datetime.now().year-sporcu.dogum_tarihi.year
+
+    yaris_list_query=Yarislar.objects.values('mesafe','brans').filter(sporcu_id_id=sporcu.id).annotate(best_time=Min('zaman'),son_yaris=Max('tarih')).order_by('-son_yaris','brans')
+    yaris_list=list(yaris_list_query)
+    
+    for yaris_sonuc in yaris_list:
+        baraj_query=Barajlar.objects.filter(brans=yaris_sonuc['brans'],
+                                      mesafe=yaris_sonuc['mesafe'],
+                                      tarih__gte=datetime.now(),
+                                      cinsiyet=sporcu.cinsiyet,
+                                      yas=sporcu_yas
+                                      )
+        
+        fark=[]
+        barajlar=list(baraj_query)
+        for item in barajlar:
+            diff = datetime.combine(datetime.now().date(), yaris_sonuc['best_time'])-datetime.combine(datetime.now().date(), item.baraj)
+            fark.append(diff.seconds+diff.microseconds/1000000)
+ 
+        yarislar=Yarislar.objects.filter(sporcu_id=sporcu_id,
+                                         brans=yaris_sonuc['brans'],
+                                         mesafe=yaris_sonuc['mesafe']
+                                         ).order_by('mesafe','brans','-tarih')[:7][::-1]
+        xValues = []
+        yValues = []
+        for yaris in yarislar:
+            xValues.append(yaris.tarih.strftime("%d.%m.%y"))
+            if yaris.zaman.minute>0:
+                yValues.append(yaris.zaman.microsecond / 100000000+yaris.zaman.second/100+yaris.zaman.minute)
+            else:
+                yValues.append(yaris.zaman.second+yaris.zaman.microsecond / 1000000)
+        
+        yaris_sonuc['xValues']=xValues
+        yaris_sonuc['yValues']=yValues
+        yaris_sonuc['barajlar']=barajlar
+        yaris_sonuc['fark']=fark
+
+    
+    
+    
+    return render(request,'sporcu_detail.html',{'sporcu':sporcu,
+                                                'yaris_list':yaris_list,
+                                              
+                                                  })
+
+
+
+
+
+
